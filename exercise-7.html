@@ -13,8 +13,56 @@
     2. the ability to check off tasks - strikes them out wo removing (add a checkbox)
     3. the ability to delete a task
     4. the ability to edit an existing task
+    
+    look at .on as a hint rather than .click. Should look similar to this: 
+
+    1. $( "#dataTable tbody" ).on( "click", "tr", function() {
+    2.  console.log( $( this ).text() );
+    3. });
+
+    this = very powerful but can also be confusing. Whatever function you put "this" into, it 
+    applies to the item of that function. i.e. first function below, this would apply to the add-button.
+
+    .on = listening for elements that have been dynamically added. constantly listening
+    .click = only finds elements that already lived in the original html
 
     */
+   // Add Item to List once Button Clicked
+  //  $(function ()
+  //  {
+  //   $("#add-button").click(function (){
+  //     var listItem =  $("#description").val();
+  //     var removeButton = "<button class='remove'>X</button>";
+  //     $("#todo-list").append("<li>"+ listItem + removeButton + "</li>");
+  //   }) 
+      
+  //   $("#add-button").on(function (){
+  //     // this will be a function for the class remove using the button that was already created. 
+  //   }
+  // });
+
+  $(function (){
+    $('ul').on("click", '.delete', function(){
+      $(this).parent().remove();
+    });
+    $('ul').on("click", 'span', function(){
+      $(this).attr('contenteditable', "true");
+    });
+
+    $("#add-button").click(function (){
+      var listItem =  $("#description").val();
+     // var removeButton = "<button class='remove'>X</button>";
+      $("#todo-list").append("<li><span>"+ listItem + "</span><button class='delete'X</button></li>");
+    }); 
+  });
+
+  // Help from Liz
+  //  line 55 is what I would need to remove an item from the list. Look in this "todo list", when there is a click on the class remove, run this function
+  // "this refers to the specific remove button that was clicked and it will find the parent list item of that button and run the remove function on the entire list item"
+  // duplicate the code for remove for the checkbox. li item + checkbox + list item + remove button. Comes with its own functionality.
+  // strikethrough = at the todo-list, on the click of the class check, it runs the function
+  
+
     </script>
     <style>
     #wrapper {
@@ -32,7 +80,8 @@
       <input id="description" type="text" name="description">
       <button id="add-button">Add Task</button>
       <ul id="todo-list">
-        <li>Feed the cat</li>
+        <input type="button" value="Remove All" onclick="removeAll()">
+        <li><span> Feed the cat </span><button class='delete'>X</button></li>
       </ul>
     </div>
   </body>

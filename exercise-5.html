@@ -13,6 +13,13 @@
     */
     $(function() {
       // Write code here
+      $("a").click(function (e){
+        e.preventDefault(); 
+        
+        var website = $(this).attr("href");
+        $('#iframe').attr('src', website);
+
+      });
     });
     </script>
   </head>
